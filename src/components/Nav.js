@@ -1,4 +1,4 @@
-import { Divider, IconButton, List, ListItem, ListItemText } from "@material-ui/core";
+import { AppBar, Divider, IconButton, List, ListItem, ListItemText, Toolbar } from "@material-ui/core";
 import Drawer from "@material-ui/core/Drawer";
 import { Menu, Close } from '@material-ui/icons';
 import { useState } from "react";
@@ -40,11 +40,16 @@ function Nav({setView, viewsList}) {
   return (
     <div className="Nav">
 
-      <IconButton
-        onClick={openNav}
-        className={styles.openButton}>
-        <Menu />
-      </IconButton>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            onClick={openNav}
+            className={styles.openButton}
+            color='inherit'>
+            <Menu />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
 
       <Drawer
         variant="persistent"
