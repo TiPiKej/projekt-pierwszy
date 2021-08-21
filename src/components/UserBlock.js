@@ -22,7 +22,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function UserBlock(props) {
-  console.log(props)
   const styles = useStyles();
 
   return (
