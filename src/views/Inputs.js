@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-function InputsClass(props) {
+function Inputs(props) {
   const styles = useStyles();
 
   const handleSubmit = ev => {
@@ -131,6 +131,4 @@ function InputsClass(props) {
 
 const mapDispatchToProps = { userData };
 
-const Inputs = connect(null, mapDispatchToProps)(InputsClass);
-
-export default Inputs;
+export default connect(null, mapDispatchToProps)(Inputs);
