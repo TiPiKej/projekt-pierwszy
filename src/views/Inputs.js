@@ -44,7 +44,7 @@ function Inputs({view, setView, setRes}) {
       address
     };
 
-    const url = 'http://localhost:3000';
+    const url = 'localhost:8080/api/addUser';
     const options = {
       method: 'POST',
       body: JSON.stringify(data),
@@ -55,9 +55,9 @@ function Inputs({view, setView, setRes}) {
 
     fetch(url, options)
       .then(res => res.json())
-      // .then(res => console.log(res))
-      .then(res => setRes(res))
-      .then(() => setView(view + 1));
+      .then(res => console.log(res))
+      // .then(res => setRes(res))
+      // .then(() => setView(view + 1));
   }
 
   const [name, setName] = useState('');
@@ -75,6 +75,9 @@ function Inputs({view, setView, setRes}) {
   }
 
   const [address, setAddress] = useState('');
+  const handleAddressChange = ev => {
+    setAddress(ev.target.value);
+  }
 
   return (
     <form noValidate autoComplete="off" onSubmit={handleSubmit} className={styles.form}>
@@ -99,7 +102,7 @@ function Inputs({view, setView, setRes}) {
       <div>
         <TextField
           label="Adres zamieszkania" variant="outlined"
-          value={address} onChange={setAddress} />
+          value={address} onChange={handleAddressChange} />
       </div>
       
       <div>
