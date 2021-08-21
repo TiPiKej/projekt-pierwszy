@@ -1,10 +1,22 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import UserBlock from "../components/UserBlock";
+import { makeStyles } from '@material-ui/core/styles';
 
 const url = 'http://localhost:8080/api/getUsers';
 
+const useStyles = makeStyles(theme => ({
+
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly'
+  }
+
+}));
+
 function List(props) {
+  const styles = useStyles();
   const [users, setUsers] = useState([])
 
   useEffect(() => {
@@ -27,7 +39,7 @@ function List(props) {
   }, [props.userData]);
 
   return (
-    <div className="List">
+    <div className={styles.root}>
       { users.map((user, i) => <UserBlock user={user} key={`${user.name}${i}`} />) }
     </div>
   );

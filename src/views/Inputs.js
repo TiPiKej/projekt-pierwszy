@@ -10,28 +10,24 @@ const url = 'http://localhost:8080/api/addUser';
 const useStyles = makeStyles(theme => ({
 
   form: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: 'center',
+
     '& .MuiTextField-root': {
       margin: theme.spacing(2),
       width: 300
     },
-
-    '&': {
-      display: "flex",
-      flexWrap: "wrap",
-      justifyContent: 'center',
-    }
   },
 
   submit: {
+    display: 'flex',
+    justifyContent: 'center',
+    minHeight: '5em',
+
     '& .MuiButton-root': {
       margin: theme.spacing(2),
       width: 300,
-    },
-
-    '&': {
-      display: 'flex',
-      justifyContent: 'center',
-      minHeight: '5em'
     },
   }
 
