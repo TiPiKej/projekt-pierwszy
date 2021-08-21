@@ -4,8 +4,7 @@ import { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from "react-redux";
 import { userData } from './../actions/'
-
-const url = 'http://localhost:8080/api/addUser';
+import url from '../assets/url';
 
 const useStyles = makeStyles(theme => ({
 
@@ -56,7 +55,7 @@ function Inputs(props) {
       }
   }
 
-  fetch(url, options)
+  fetch(`${url}/api/addUser`, options)
     .then(res => res.json())
     .then(res => {
       if (!res.ok) return;

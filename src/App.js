@@ -4,12 +4,10 @@ import NavComp from './components/Nav'
 import { useEffect, useState } from "react";
 
 function App() {
-  const [view, setView] = useState(0);
+  const [view, setView] = useState(-1);
   const [res, setRes] = useState({});
 
   const handleChangeView = (vNbr = 0) => {
-    if (vNbr < 0 || viewsList.length <= vNbr) return;
-
     setView(vNbr)
 
     const url = new URL(window.location.href);
@@ -35,7 +33,7 @@ function App() {
       <NavComp
         setView={handleChangeView}
         viewsList={viewsList} />
-      {viewsList[view].v}
+      {0 <= view && view < viewsList.length ? viewsList[view].v : ""}
     </div>
   );
 }

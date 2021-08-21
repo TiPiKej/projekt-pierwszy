@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import UserBlock from "../components/UserBlock";
 import { makeStyles } from '@material-ui/core/styles';
-
-const url = 'http://localhost:8080/api/getUsers';
+import url from '../assets/url';
 
 const useStyles = makeStyles(theme => ({
 
@@ -20,19 +19,34 @@ function List(props) {
   const [users, setUsers] = useState([])
 
   useEffect(() => {
-    fetch(url)
+    fetch(`${url}/api/getUsers`)
       .then(res => res.json())
       .then(res => {
         if (!res.ok) return;
 
         if (props.userData.name === '' && props.userData.surname === '') {
-          setUsers(res.users);
+          if (res.users.length > 0) setUsers(res.users);
+          else {
+            setUsers([{
+              name: "Brak",
+              surname: "Danych",
+              address: "do wyswietlenia"
+            }])
+          }
           return;
         }
 
         setUsers(res.users.filter(u => 
           u.name === props.userData.name && u.surname === props.userData.surname
         ));
+
+        if (res.users.length === 0) {
+          setUsers([{
+            name: "Brak",
+            surname: "Danych",
+            address: "do wyswietlenia"
+          }])
+        }
         
       })
 
