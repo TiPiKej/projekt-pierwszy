@@ -66,7 +66,7 @@ function Inputs(props) {
       if (res.code !== 200) return;
 
       props.userData(user);
-      // props.setView(props.view + 1)
+      props.setView(props.view + 1)
     });
   }
 
