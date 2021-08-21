@@ -1,21 +1,14 @@
-import { Input, TextField } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
+import { Send } from '@material-ui/icons';
 import { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
 
   form: {
-    '& .MuiTextField-root, & .MuiInput-root': {
+    '& .MuiTextField-root': {
       margin: theme.spacing(2),
       width: 300
-    },
-
-    '& .MuiInput-input, & .MuiInput-root': {
-      cursor: 'pointer'
-    },
-
-    '& .MuiInput-input': {
-      margin: theme.spacing(1),
     },
 
     '&': {
@@ -23,6 +16,19 @@ const useStyles = makeStyles(theme => ({
       flexWrap: "wrap",
       justifyContent: 'center',
     }
+  },
+
+  submit: {
+    '& .MuiButton-root': {
+      margin: theme.spacing(2),
+      width: 300,
+    },
+
+    '&': {
+      display: 'flex',
+      justifyContent: 'center',
+      minHeight: '5em'
+    },
   }
 
 }));
@@ -31,8 +37,6 @@ function Inputs({view, setView, setRes}) {
   const styles = useStyles();
 
   const handleSubmit = ev => {
-    ev.preventDefault();
-
     if (!name.length) setNameErr(true);
     if (!surname.length) setSurnameErr(true);
 
@@ -44,7 +48,7 @@ function Inputs({view, setView, setRes}) {
       address
     };
 
-    const url = 'localhost:8080/api/addUser';
+    const url = 'http://localhost:8080/api/addUser';
     const options = {
       method: 'POST',
       body: JSON.stringify(data),
@@ -53,11 +57,15 @@ function Inputs({view, setView, setRes}) {
       }
     }
 
+    
     fetch(url, options)
       .then(res => res.json())
       .then(res => console.log(res))
       // .then(res => setRes(res))
       // .then(() => setView(view + 1));
+      .catch(e => {
+        console.log(e)
+      })
   }
 
   const [name, setName] = useState('');
@@ -80,7 +88,7 @@ function Inputs({view, setView, setRes}) {
   }
 
   return (
-    <form noValidate autoComplete="off" onSubmit={handleSubmit} className={styles.form}>
+    <form noValidate autoComplete="off" className={styles.form}>
       <div>
         <TextField
           error={nameErr}
@@ -105,8 +113,15 @@ function Inputs({view, setView, setRes}) {
           value={address} onChange={handleAddressChange} />
       </div>
       
-      <div>
-        <Input type="submit" value="Zapisz" />
+      <div className={styles.submit}>
+        <Button
+          variant="contained"
+          color="primary"
+          endIcon={<Send />}
+          onClick={handleSubmit}
+        >
+          Zapisz
+        </Button>
       </div>
     </form>
   );
