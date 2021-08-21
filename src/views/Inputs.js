@@ -63,7 +63,7 @@ function Inputs(props) {
   fetch(url, options)
     .then(res => res.json())
     .then(res => {
-      if (res.code !== 200) return;
+      if (!res.ok) return;
 
       props.userData(user);
       props.setView(props.view + 1)
