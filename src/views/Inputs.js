@@ -2,6 +2,10 @@ import { TextField, Button } from '@material-ui/core';
 import { Send } from '@material-ui/icons';
 import { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from "react-redux";
+import { userData } from './../actions/'
+
+const url = 'http://localhost:8080/api/addUser';
 
 const useStyles = makeStyles(theme => ({
 
@@ -33,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-function Inputs({view, setView, setRes}) {
+function InputsClass(props) {
   const styles = useStyles();
 
   const handleSubmit = ev => {
@@ -42,30 +46,28 @@ function Inputs({view, setView, setRes}) {
 
     if (!name.length || !surname.length) return;
 
-    const data = {
+    const user = {
       name,
       surname,
       address
     };
 
-    const url = 'http://localhost:8080/api/addUser';
     const options = {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: JSON.stringify(user),
       headers: {
-        'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
       }
-    }
+  }
 
-    
-    fetch(url, options)
-      .then(res => res.json())
-      .then(res => console.log(res))
-      // .then(res => setRes(res))
-      // .then(() => setView(view + 1));
-      .catch(e => {
-        console.log(e)
-      })
+  fetch(url, options)
+    .then(res => res.json())
+    .then(res => {
+      if (res.code !== 200) return;
+
+      props.userData(user);
+      // props.setView(props.view + 1)
+    });
   }
 
   const [name, setName] = useState('');
@@ -88,7 +90,7 @@ function Inputs({view, setView, setRes}) {
   }
 
   return (
-    <form noValidate autoComplete="off" className={styles.form}>
+    <form noValidate autoComplete="off" className={styles.form} action={url}>
       <div>
         <TextField
           error={nameErr}
@@ -126,5 +128,9 @@ function Inputs({view, setView, setRes}) {
     </form>
   );
 }
+
+const mapDispatchToProps = { userData };
+
+const Inputs = connect(null, mapDispatchToProps)(InputsClass);
 
 export default Inputs;
