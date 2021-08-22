@@ -62,7 +62,10 @@ function Inputs(props) {
 
       props.userData(user);
       props.setView(props.view + 1)
-    });
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   const [name, setName] = useState('');

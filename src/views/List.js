@@ -49,6 +49,9 @@ function List(props) {
         }
         
       })
+      .catch(err => {
+        console.log(err)
+      })
 
   }, [props.userData]);
 
